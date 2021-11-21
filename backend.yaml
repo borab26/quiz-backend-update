@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quiz-backend-update
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: quiz-backend-update
+      tier: backend
+      track: stable
+  template:
+    metadata:
+      labels:
+        app: quiz-backend-update
+        tier: backend
+        track: stable
+    spec:
+      containers:
+      - image: kontetsu/backend-update:v1
+        imagePullPolicy: Always
+        name: quiz-backend-update
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: quiz-backend-update
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: quiz-backend-update
+    tier: backend
+    track: stable
+  type: ClusterIP
+status:
+  loadBalancer: {}
