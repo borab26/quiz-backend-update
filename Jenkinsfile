@@ -22,11 +22,7 @@ pipeline {
 
             steps {
 
-                script {
-
-                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
-
-                }
+                   sh 'docker build -t bora2612b/bora:v02 .'
 
             }
         }
@@ -40,7 +36,7 @@ pipeline {
       stage ('Deploy Image') {
       steps {
         script {
-            dockerImage.push("playjenkinsback")
+            dockerImage.push("bora2612b/bora:v02")
 
 
           }
