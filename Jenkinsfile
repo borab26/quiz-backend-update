@@ -3,7 +3,7 @@ pipeline {
 		agent any
 
 		environment {
-        		registry = "bora2612b/bora"
+        		registry = "bora2612b/playjenkins"
         		registryCredential  = '2612bora'
 			    dockerImage = 'playjenkins'
     		}
