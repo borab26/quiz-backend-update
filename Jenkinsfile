@@ -1,51 +1,32 @@
-pipeline {
-       agent any
+pipeline{
 
-		environment {
-        		registry = "bora2612b/bora"
-        		registryCredential  = 'docker_connect'
-			    dockerImage = 'playjenkinsback'
-    		}
+	agent any
 
-     stages {
+	environment {
+		DOCKERHUB_CREDENTIALS=credentials('docker_connect')
+	}
 
+	stages {
 
-	  stage ('Checkout') {
-				steps {
-				   script {
-						checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/borab26/quiz-backend-update.git']]])
-				}
+		stage('Build') {
+
+			steps {
+				sh 'docker build -t bora2612b/backendbitch:v01 .'
 			}
-			}
-
-       stage ('Building our image') {
-
-            steps {
-
-                   sh 'docker build -t bora2612b/bora:v02 .'
-
-            }
-        }
+		}
 
 		stage('Login') {
 
 			steps {
-				sh 'echo $registryCredential_PSW | docker login -u $registryCredential_USR --password-stdin'
+				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
 			}
 		}
 
+		stage('Push') {
 
-
-
-
-      stage ('Deploy Image') {
-      steps {
-        script {
-            dockerImage.push("bora2612b/bora:v02")
-
-
-          }
-        }
-      }
-    }
-    }
+			steps {
+				sh 'docker push bora2612b/backendbitch:v01'
+			}
+		}
+	}
+}
