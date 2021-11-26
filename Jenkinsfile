@@ -3,7 +3,7 @@ pipeline {
 
 		environment {
         		registry = "bora2612b/bora"
-        		registryCredential  = '2612bora'
+        		registryCredential  = 'docker_connect'
 			    dockerImage = 'playjenkinsback'
     		}
 
@@ -27,7 +27,12 @@ pipeline {
             }
         }
 
+		stage('Login') {
 
+			steps {
+				sh 'echo $registryCredential_PSW | docker login -u $registryCredential_USR --password-stdin'
+			}
+		}
 
 
 
