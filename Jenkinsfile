@@ -33,7 +33,7 @@ pipeline{
 		}
 	    stage ('Kubernetis deploy'){
 			steps {
-					sh ("/usr/local/bin/kubectl apply -f backend.yaml")
+				sh ("kubectl apply -f backend.yaml")
 			}
 		}
 	}
