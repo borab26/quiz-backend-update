@@ -35,5 +35,12 @@ pipeline{
 			sh 'docker logout'
 		}
 	}
-
+		stage('kubernetes'){
+		    steps{
+		        script{
+		    		sh 'kubectl apply -f demo.yaml'
+		        }
+		    }
+		}
 }
+
