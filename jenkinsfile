@@ -4,8 +4,9 @@ pipeline{
 
 	environment {
 		DOCKERHUB_CREDENTIALS=credentials('docker_connect')
-		// KUBE_CREDENTIALS=credentials('kube_config')
-		// URL=serverUrl("https://ergetaks-aaf1c2e8.hcp.eastus2.azmk8s.io:443")
+		// KUBE_CREDENTIALS=credentials('kubebora')
+		// URL=serverUrl("https://boradns-k8s-77357fd6.hcp.switzerlandnorth.azmk8s.io:443")
+
 	}
 
 	stages {
@@ -13,7 +14,7 @@ pipeline{
 		stage('Build') {
 
 			steps {
-				sh 'docker build -t kontetsu/backend:v02 .'
+				sh 'docker build -t bora2612b/backendbitch:v01 .'
 			}
 		}
 
@@ -27,28 +28,14 @@ pipeline{
 		stage('Push') {
 
 			steps {
-				sh 'docker push kontetsu/backend:v02'
+				sh 'docker push bora2612b/backendbitch:v01'
 			}
 		}
-		// stage('kubernetes'){
-		//     steps{
-		//     		sh 'kubectl apply -f backend.yaml'
-		//     }
-		// }
-		stage ('Kubernetis deploy'){
+	    stage ('Kubernetis deploy'){
 			steps {
-				// withKubeCredentials([kubectlCredentials: 'KUBE_CREDENTIALS', serverUrl: 'URL']){
-					sh ("/usr/local/bin/kubectl -n testenv apply -f backend.yaml")
-				
+					sh ("/usr/local/bin/kubectl apply -f backend.yaml")
 			}
 		}
 	}
-
-	post {
-		always {
-			sh 'docker logout'
-		}
-	}
-
 }
 
