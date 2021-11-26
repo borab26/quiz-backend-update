@@ -28,12 +28,15 @@ pipeline{
 				sh 'docker push kontetsu/backend:v02'
 			}
 		}
-		stage('kubernetes'){
-		    steps{
-		        script{
-		    		sh 'kubectl apply -f backend.yaml'
-		        }
-		    }
+		// stage('kubernetes'){
+		//     steps{
+		//     		sh 'kubectl apply -f backend.yaml'
+		//     }
+		// }
+		stage ('kube'){
+			withKubeConfig([credentialsId: 'kube_konfig', serverUrl: "https://ergetaks-aaf1c2e8.hcp.eastus2.azmk8s.io:443"]){
+				sh 'kubectl apply -f backend.yaml'
+			}
 		}
 	}
 
