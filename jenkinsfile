@@ -28,13 +28,6 @@ pipeline{
 				sh 'docker push kontetsu/backend:v02'
 			}
 		}
-	}
-
-	post {
-		always {
-			sh 'docker logout'
-		}
-	}
 		stage('kubernetes'){
 		    steps{
 		        script{
@@ -42,5 +35,13 @@ pipeline{
 		        }
 		    }
 		}
+	}
+
+	post {
+		always {
+			sh 'docker logout'
+		}
+	}
+
 }
 
