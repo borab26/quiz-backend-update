@@ -35,7 +35,7 @@ pipeline{
 		// }
 		stage ('kube'){
 			steps {
-				kubectlCredentials([credentialsId: 'kube_konfig', serverUrl: "https://ergetaks-aaf1c2e8.hcp.eastus2.azmk8s.io:443"]){
+				withKubeCredentials([kubectlCredentials: 'kube_konfig', serverUrl: "https://ergetaks-aaf1c2e8.hcp.eastus2.azmk8s.io:443"]){
 					sh 'kubectl apply -f backend.yaml'
 				}
 			}
