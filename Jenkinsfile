@@ -4,6 +4,9 @@ pipeline{
 
 	environment {
 		DOCKERHUB_CREDENTIALS=credentials('docker_connect')
+		// KUBE_CREDENTIALS=credentials('kubebora')
+		// URL=serverUrl("https://boradns-k8s-77357fd6.hcp.switzerlandnorth.azmk8s.io:443")
+	
 	}
 
 	stages {
@@ -28,12 +31,14 @@ pipeline{
 				sh 'docker push bora2612b/backendbitch:v01'
 			}
 		}
-		stage ('kube'){
+	stage ('Kubernetis deploy'){
 			steps {
-				sh ("/usr/local/bin/kubectl apply -f backend.yaml")
+				// withKubeCredentials([kubectlCredentials: 'KUBE_CREDENTIALS', serverUrl: 'URL']){
+					sh ("/usr/local/bin/kubectl apply -f backend.yaml")
 				
 			}
 		}
+	}
 	}
 }
 
