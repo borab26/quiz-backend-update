@@ -17,7 +17,7 @@ spec:
         track: stable
     spec:
       containers:
-      - image: kontetsu/backend-update:v1
+      - image: bora2612b/backendbitch:v01
         imagePullPolicy: Always
         name: backend
         ports:
