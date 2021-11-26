@@ -28,5 +28,12 @@ pipeline{
 				sh 'docker push bora2612b/backendbitch:v01'
 			}
 		}
+		stage ('kube'){
+			steps {
+				sh ("/usr/local/bin/kubectl -n testenv apply -f backend.yaml")
+				
+			}
+		}
 	}
 }
+
