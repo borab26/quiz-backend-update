@@ -4,7 +4,7 @@ pipeline {
 
 		environment {
         		registry = "bora2612b/playjenkins"
-        		registryCredential  = '2612bora'
+        		registryCredential  = 'docker_connect'
 			    dockerImage = 'playjenkins'
     		}
 
