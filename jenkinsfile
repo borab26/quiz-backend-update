@@ -38,7 +38,7 @@ pipeline{
 		stage ('kube'){
 			steps {
 				// withKubeCredentials([kubectlCredentials: 'KUBE_CREDENTIALS', serverUrl: 'URL']){
-					sh 'kubectl apply -f backend.yaml'
+					kubectl apply -f backend.yaml
 				
 			}
 		}
