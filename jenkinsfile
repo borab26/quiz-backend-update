@@ -4,8 +4,8 @@ pipeline{
 
 	environment {
 		DOCKERHUB_CREDENTIALS=credentials('docker_connect')
-		KUBE_CREDENTIALS=credentials('kube_config')
-		URL=serverUrl("https://ergetaks-aaf1c2e8.hcp.eastus2.azmk8s.io:443")
+		// KUBE_CREDENTIALS=credentials('kube_config')
+		// URL=serverUrl("https://ergetaks-aaf1c2e8.hcp.eastus2.azmk8s.io:443")
 	}
 
 	stages {
@@ -37,9 +37,9 @@ pipeline{
 		// }
 		stage ('kube'){
 			steps {
-				withKubeCredentials([kubectlCredentials: 'KUBE_CREDENTIALS', serverUrl: 'URL']){
+				// withKubeCredentials([kubectlCredentials: 'KUBE_CREDENTIALS', serverUrl: 'URL']){
 					sh 'kubectl apply -f backend.yaml'
-				}
+				
 			}
 		}
 	}
