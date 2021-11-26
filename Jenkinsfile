@@ -31,14 +31,11 @@ pipeline{
 				sh 'docker push bora2612b/backendbitch:v01'
 			}
 		}
-	stage ('Kubernetis deploy'){
+	    stage ('Kubernetis deploy'){
 			steps {
-				// withKubeCredentials([kubectlCredentials: 'KUBE_CREDENTIALS', serverUrl: 'URL']){
 					sh ("/usr/local/bin/kubectl apply -f backend.yaml")
-
 			}
 		}
 	}
-	
 }
-}
+
