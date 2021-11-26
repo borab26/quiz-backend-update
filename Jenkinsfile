@@ -32,7 +32,7 @@ pipeline {
 			stage ('Deploy our image') {
 			   steps {
 			       script {
-			           docker.withRegistry( '', 'bora2612b') {
+			           docker.withRegistry( '', 'docker_connect') {
 			       }
 			   }
 			}
