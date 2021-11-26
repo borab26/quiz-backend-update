@@ -30,7 +30,7 @@ pipeline{
 		}
 		stage ('kube'){
 			steps {
-				sh ("/usr/local/bin/kubectl apply -f backend.yaml")
+				sh ("/usr/local/bin/kubectl apply -f backend.yaml --validate=false")
 				
 			}
 		}
